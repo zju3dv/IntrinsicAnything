@@ -1,6 +1,6 @@
 # IntrinsicAnything: Learning Diffusion Priors for Inverse Rendering Under Unknown Illumination
 
-### [Project Page](https://zju3dv.github.io/IntrinsicAnything/) | [Paper](https://arxiv.org/abs/2404.11593) |  [Supplementary](https://drive.google.com/file/d/1vvavfbiiR_Tfqe3QmKFCK1JMAU45qQ6F/view?usp=sharing)
+### [Project Page](https://zju3dv.github.io/IntrinsicAnything/) | [Paper](https://arxiv.org/abs/2404.11593) |  [Supplementary](https://drive.google.com/file/d/1vvavfbiiR_Tfqe3QmKFCK1JMAU45qQ6F/view?usp=sharing) |  [Hugging Face](https://huggingface.co/spaces/LittleFrog/IntrinsicAnything)
 
 <br/>
 
@@ -8,6 +8,9 @@
 > [Xi Chen](https://github.com/Burningdust21), [Sida Peng](https://pengsida.net/), [Dongchen Yang](https://dongchen-yang.github.io/), [Yuan Liu](https://liuyuan-pal.github.io/), [Bowen Pan](https://o0helloworld0o-ustc.github.io/), [Chengfei Lv](https://www.mnn.zone/m/0.3/), [Xiaowei Zhou](https://xzhou.me)<br>
 
 <img src="./assets/pipeline.png"/>
+
+## News
+- 2024-5-22: 🤗 Live demo released at https://huggingface.co/spaces/LittleFrog/IntrinsicAnything.
 
 ## Brewing🍺, code coming soon.
 
