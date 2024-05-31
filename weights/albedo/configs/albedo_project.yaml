@@ -1,0 +1,109 @@
+model:
+  base_learning_rate: 0.0001
+  target: ldm.models.diffusion.ddpm.LatentDiffusion
+  params:
+    linear_start: 0.00085
+    linear_end: 0.012
+    num_timesteps_cond: 1
+    log_every_t: 200
+    timesteps: 1000
+    first_stage_key: image_target
+    cond_stage_key: image_cond
+    image_size: 32
+    channels: 4
+    cond_stage_trainable: false
+    conditioning_key: hybrid
+    monitor: val/loss_simple_ema
+    scale_factor: 0.18215
+    scheduler_config:
+      target: ldm.lr_scheduler.LambdaLinearScheduler
+      params:
+        warm_up_steps:
+        - 100
+        cycle_lengths:
+        - 10000000000000
+        f_start:
+        - 1.0e-06
+        f_max:
+        - 1.0
+        f_min:
+        - 1.0
+    unet_config:
+      target: ldm.modules.diffusionmodules.openaimodel.UNetModel
+      params:
+        image_size: 32
+        in_channels: 8
+        out_channels: 4
+        model_channels: 320
+        attention_resolutions:
+        - 4
+        - 2
+        - 1
+        num_res_blocks: 2
+        channel_mult:
+        - 1
+        - 2
+        - 4
+        - 4
+        num_heads: 8
+        use_spatial_transformer: true
+        transformer_depth: 1
+        context_dim: 768
+        use_checkpoint: true
+        legacy: false
+    first_stage_config:
+      target: ldm.models.autoencoder.AutoencoderKL
+      params:
+        embed_dim: 4
+        monitor: val/rec_loss
+        ddconfig:
+          double_z: true
+          z_channels: 4
+          resolution: 256
+          in_channels: 3
+          out_ch: 3
+          ch: 128
+          ch_mult:
+          - 1
+          - 2
+          - 4
+          - 4
+          num_res_blocks: 2
+          attn_resolutions: []
+          dropout: 0.0
+        lossconfig:
+          target: torch.nn.Identity
+    cond_stage_config:
+      target: ldm.modules.encoders.modules.FrozenCLIPImageEmbedder
+data:
+  target: ldm.data.simple.ObjaverseDataModuleFromConfig
+  params:
+    target_name: albedo
+    root_dir: data/objaverse_rendering/samll-dataset
+    batch_size: 128
+    num_workers: 16
+    tar_config:
+      list_dir: data/big_data_lists
+      tar_dir: data/big_data
+      img_per_obj: 10
+    objaverse_data_list:
+      image_list_cache_path: image_lists/64000_10_image_list.npz
+      obj_starts:
+      - 0
+      - 5000
+      - 15000
+      obj_ends:
+      - 2000
+      - 7000
+      - 17000
+      num_envs: 50
+      num_imgs: 1
+    train:
+      validation: false
+      image_transforms:
+        size: 256
+    validation:
+      validation: true
+      image_transforms:
+        size: 256
+    use_wds: true

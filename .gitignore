@@ -1,0 +1,10 @@
+log/
+out/
+
+log
+out
+
+**/__pycache__/
+vis_*/
+src/
+weights/**/checkpoints/
